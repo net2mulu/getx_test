@@ -1,17 +1,15 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:getx_test/states/counterState.dart';
+import 'package:getx_test/screens/second.dart';
 
 
 class Home extends StatelessWidget {
    Home({ Key? key }) : super(key: key);
 
-final CounterState counterState = Get.put(CounterState());
 
 goToNext() {
-  Get.to(const Other());
+  Get.to(const Second());
   // Navigator.push(context, MaterialPageRoute(builder: (context) => Other()));
 }
 
@@ -61,38 +59,21 @@ _showBottomSheet() {
           ElevatedButton(onPressed: () => _showDialog(), child: const Text("Dialog")),
           ElevatedButton(onPressed: () => _showBottomSheet(), child: const Text("Bottom Sheet")),
           const SizedBox(height: 50,),
-          Obx(
-            () =>  Text(
-              "State: " + counterState.count.string,
-              style: const TextStyle(fontSize: 30,
-              fontWeight: FontWeight.bold),
-            ),
-          ),
+          ElevatedButton(onPressed: () {
+            Get.toNamed("second", arguments: "Passed from Home");
+          }, child: const Text("Name Route: /second")),
+        
         ],
       ),
       
       ),
-       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-         counterState.increment();
-        },
-        child: const Icon(Icons.add),
-      ),
+      //  floatingActionButton: FloatingActionButton(
+      //   onPressed: () {
+        
+      //   },
+      //   child: const Icon(Icons.add),
+      // ),
     );
   }
 }
 
-
-class Other extends StatelessWidget {
-  const Other({Key? key}) : super(key: key);
-
-  
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      body: const Center(child: Text("Other"),
-      ),
-    );
-  }
-}
